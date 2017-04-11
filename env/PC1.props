@@ -1,0 +1,4 @@
+com.ibm.ws.scripting.connectionType=SOAP
+com.ibm.ws.scripting.port=8882
+com.ibm.ws.scripting.host=localhost
+com.ibm.ws.scripting.defaultLang=jython
