@@ -1,0 +1,1 @@
+print AdminTask.BPMShowProcessApplication('[-containerAcronym <<PROCESS_APP_ACRONYM>>]')
