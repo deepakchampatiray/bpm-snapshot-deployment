@@ -1,5 +1,10 @@
 #!/bin/bash
 
+source "${BASH_SOURCE%/*}/constants.sh"
+source "${BASH_SOURCE%/*}/functions.sh"
+
+echo $WSADMIN_PATH
+
 ## Need arguments like 
 ##	Name of the Process App => --p_app
 ##	Name of the Snapshot => --snap
@@ -45,5 +50,18 @@ echo "Process App:" $p_app
 echo "Snapshot:" $snap
 echo "Username:" $user
 echo "Password:" $password
+
+# Create file to pull process-app details
+buildPAFromTemplate "showPA.py" "CVS";
+# execute file to pull process-app details
+executePyInWsadmin $user $password "showPA.py";
+# Parse WSadmin output
+trackAckronym="$(python $SCRIPTS_DIR/readTrackInfo.py $snap)"
+
+if [ -z $trackAckronym ]
+then
+  echo "Track not found"
+  exit 1
+fi
 
 #cmd "/C showPA.bat"

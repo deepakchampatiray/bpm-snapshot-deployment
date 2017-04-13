@@ -1,0 +1,30 @@
+WASX7209I: Connected to process "SingleClusterMember1" on node Node1 using SOAP connector;  The type of process is: ManagedProcess
+Getting Process Application Details
+Name: Coach View Sandbox
+Acronym: CVS
+Description: null
+Toolkit: false
+Tracks:
+
+	Track Name: Main
+	Track Acronym: Main
+	Default: true
+
+	Tip: 
+		Created On: 2017-04-11 04:06:12.926
+		Created By: User.1002
+		State: State[Inactive]
+		Capability: Capability[Standard]
+		No of running instances: 1
+
+	List of Snapshots: 
+		Name: 041117C_Snapshot1
+		Acronym: 041117C
+		Created On: 2017-04-11 04:06:12.926
+		Created By: User.1002
+		Is Default: false
+		State: State[Inactive]
+		Capability: Capability[Standard]
+		No of running instances: 0
+
+
