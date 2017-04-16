@@ -49,14 +49,26 @@ fi
 echo "Process App:" $p_app
 echo "Snapshot:" $snap
 echo "Username:" $user
-echo "Password:" $password
+echo "Password: *****" 
 
 # Create file to pull process-app details
-buildPAFromTemplate "showPA.py" "CVS";
+buildPAFromTemplate "showPA.py" "$p_app";
 # execute file to pull process-app details
 executePyInWsadmin $user $password "showPA.py";
-# Parse WSadmin output
+# Parse WSadmin output to get Track Acronym
 trackAckronym="$(python $SCRIPTS_DIR/readTrackInfo.py $snap)"
+echo "Track Acronym: $trackAckronym"
+# Parse WSadmin output to get Snopshot Acronym
+snapshotAckronym="$(python $SCRIPTS_DIR/readSnapshotInfo.py $snap)"
+echo "Snapshot Ackronym: $snapshotAckronym"
+# Create file to export process-app
+buildPAExportFromTemplate "exportPA.py" "$p_app" "$snapshotAckronym" "$trackAckronym" "$GIT_PATH$p_app\\\\S_$snap.zip";
+# Fire command to export process-app
+executePyInWsadmin $user $password "exportPA.py";
+# Move file to git repo
+#mv 
+
+
 
 if [ -z $trackAckronym ]
 then

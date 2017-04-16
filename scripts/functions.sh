@@ -4,6 +4,10 @@ buildPAFromTemplate() {
     cat "$SCRIPTS_DIR/../templates/$1" | sed -e "s/<<PROCESS_APP_ACRONYM>>/$2/g" > "$SCRIPTS_DIR/temp/$1"
 }
 
+buildPAExportFromTemplate() {
+    cat "$SCRIPTS_DIR/../templates/$1" | sed -e "s/<<PROCESS_APP_ACRONYM>>/$2/g;s/<<SNAPSHOT_ACRONYM>>/$3/g;s/<<TRACK_ACRONYM>>/$4/g;s%<<OUTPUT_FILE_PATH>>%$5%g;" > "$SCRIPTS_DIR/temp/$1"
+}
+
 
 executePyInWsadmin() {
     echo $0 $1 $2;
