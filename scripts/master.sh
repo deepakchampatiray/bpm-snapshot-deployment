@@ -61,12 +61,14 @@ echo "Track Acronym: $trackAckronym"
 # Parse WSadmin output to get Snopshot Acronym
 snapshotAckronym="$(python $SCRIPTS_DIR/readSnapshotInfo.py $snap)"
 echo "Snapshot Ackronym: $snapshotAckronym"
+UNIQUE_FILE_NAME="$p_app.$trackAckronym.$snap";
+echo "Unique Name: $UNIQUE_FILE_NAME"
 # Create file to export process-app
-buildPAExportFromTemplate "exportPA.py" "$p_app" "$snapshotAckronym" "$trackAckronym" "$GIT_PATH$p_app\\\\S_$snap.zip";
+buildPAExportFromTemplate "exportPA.py" "$p_app" "$snapshotAckronym" "$trackAckronym" "$WINDOWS_BASE_PATH\\\\scripts\\\\temp\\\\$UNIQUE_FILE_NAME.zip";
 # Fire command to export process-app
 executePyInWsadmin $user $password "exportPA.py";
-# Move file to git repo
-#mv 
+# Extract file to git repo
+source "${BASH_SOURCE%/*}/extractBPMExport.sh"
 
 
 

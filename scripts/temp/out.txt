@@ -1,3 +1,4 @@
 WASX7209I: Connected to process "SingleClusterMember1" on node Node1 using SOAP connector;  The type of process is: ManagedProcess
 Exporting Process Application
-BPMExportInstallPackage passed.
+WASX7017E: Exception received while running file "G:\\Github\\bpm-snapshot-deployment\scripts\temp\exportPA.py"; exception information: java.lang.Exception: java.lang.Exception: File G:\Github\bpm-snapshot-deployment\scripts\temp\CVS.Main.041117C_Snapshot1.zip already exists
+

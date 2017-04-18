@@ -5,7 +5,13 @@ buildPAFromTemplate() {
 }
 
 buildPAExportFromTemplate() {
-    cat "$SCRIPTS_DIR/../templates/$1" | sed -e "s/<<PROCESS_APP_ACRONYM>>/$2/g;s/<<SNAPSHOT_ACRONYM>>/$3/g;s/<<TRACK_ACRONYM>>/$4/g;s%<<OUTPUT_FILE_PATH>>%$5%g;" > "$SCRIPTS_DIR/temp/$1"
+    OUT_FILE=$( escapeWindowsPath $5 );
+    #echo $OUT_FILE;
+    cat "$SCRIPTS_DIR/../templates/$1" | sed -e "s/<<PROCESS_APP_ACRONYM>>/$2/g;s/<<SNAPSHOT_ACRONYM>>/$3/g;s/<<TRACK_ACRONYM>>/$4/g;s%<<OUTPUT_FILE_PATH>>%$OUT_FILE%g;" > "$SCRIPTS_DIR/temp/$1"
+}
+
+escapeWindowsPath() {
+    echo $1 | sed 's%\\%\\\\%g';
 }
 
 
