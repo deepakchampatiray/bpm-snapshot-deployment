@@ -3,7 +3,7 @@
 source "${BASH_SOURCE%/*}/constants.sh"
 source "${BASH_SOURCE%/*}/functions.sh"
 
-echo $WSADMIN_PATH
+echo "WSADMIN PATH: $WSADMIN_PATH"
 
 ## Need arguments like 
 ##	Name of the Process App => --p_app
@@ -49,11 +49,12 @@ fi
 echo "Process App:" $p_app
 echo "Snapshot:" $snap
 echo "Username:" $user
-echo "Password: *****" 
+echo "Password: *****"
 
 # Create file to pull process-app details
 buildPAFromTemplate "showPA.py" "$p_app";
 # execute file to pull process-app details
+echo 'Fetching Process Application details';
 executePyInWsadmin $user $password "showPA.py";
 # Parse WSadmin output to get Track Acronym
 trackAckronym="$(python $SCRIPTS_DIR/readTrackInfo.py $snap)"
@@ -66,9 +67,21 @@ echo "Unique Name: $UNIQUE_FILE_NAME"
 # Create file to export process-app
 buildPAExportFromTemplate "exportPA.py" "$p_app" "$snapshotAckronym" "$trackAckronym" "$WINDOWS_BASE_PATH\\\\scripts\\\\temp\\\\$UNIQUE_FILE_NAME.zip";
 # Fire command to export process-app
+echo 'Exporting Process Application';
 executePyInWsadmin $user $password "exportPA.py";
+# Create a new GIT branch
+echo "Creating new GIT branch : $UNIQUE_FILE_NAME";
+createGitBranch "$LOCAL_GITREPO/$p_app" "$UNIQUE_FILE_NAME";
 # Extract file to git repo
-source "${BASH_SOURCE%/*}/extractBPMExport.sh"
+echo 'Extracting exported zip into local GIT repo';
+source "${BASH_SOURCE%/*}/extractBPMExport.sh";
+# Commit and push git branch
+echo "Commit and push new GIT branch : $UNIQUE_FILE_NAME";
+commitandPushGitBranch "$LOCAL_GITREPO/$p_app" "$UNIQUE_FILE_NAME";
+
+# Empty the temp directory
+echo 'Removing temp files'
+rm -- "$SCRIPTS_DIR"/temp/*;
 
 
 

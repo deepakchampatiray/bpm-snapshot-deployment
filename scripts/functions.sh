@@ -16,11 +16,32 @@ escapeWindowsPath() {
 
 
 executePyInWsadmin() {
-    echo $0 $1 $2;
+    # echo $0 $1 $2;
     comm="$WSADMIN_PATH\\wsadmin.bat -user $1 -password $2 -f $WINDOWS_BASE_PATH\\scripts\\temp\\$3 > $WINDOWS_BASE_PATH\\scripts\\temp\\out.txt";
     # -user $1 -password $2
-    echo $comm;
+    # echo $comm;
     cmd //C "$comm";
+}
+
+createGitBranch() {
+    # $1 : Local Git repo path
+    # $2 : Branch Name
+    cd $1;
+    # Checkout init branch
+    git checkout init;
+    # Create and switch to new branch
+    git checkout -b "$2";
+    cd -;
+}
+
+commitandPushGitBranch() {
+    # $1 : Local Git repo path
+    # $2 : Branch Name
+    cd $1;
+    git add --all;
+    git commit -m "Auto Commit - $(whoami)";
+    git push origin "$2";
+    cd -;
 }
 
 echo "Importing Functions"
