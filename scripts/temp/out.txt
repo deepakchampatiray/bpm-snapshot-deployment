@@ -1,1 +1,0 @@
-WASX7209I: Connected to process "SingleClusterMember1" on node Node1 using SOAP connector;  The type of process is: ManagedProcess

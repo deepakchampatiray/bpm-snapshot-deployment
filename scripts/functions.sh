@@ -30,16 +30,23 @@ createGitBranch() {
     # Checkout init branch
     git checkout init;
     # Create and switch to new branch
-    git checkout -b "$2";
+    if git show-ref --verify --quiet refs/heads/$2;
+    then
+        git checkout "$2";
+    else
+        git checkout -b "$2";
+    fi
+
     cd -;
 }
 
 commitandPushGitBranch() {
     # $1 : Local Git repo path
     # $2 : Branch Name
+    # $3 : Snapshot Name
     cd $1;
     git add --all;
-    git commit -m "Auto Commit - $(whoami)";
+    git commit -m "Auto Commit - $3";
     git push origin "$2";
     cd -;
 }

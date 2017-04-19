@@ -70,14 +70,14 @@ buildPAExportFromTemplate "exportPA.py" "$p_app" "$snapshotAckronym" "$trackAckr
 echo 'Exporting Process Application';
 executePyInWsadmin $user $password "exportPA.py";
 # Create a new GIT branch
-echo "Creating new GIT branch : $UNIQUE_FILE_NAME";
-createGitBranch "$LOCAL_GITREPO/$p_app" "$UNIQUE_FILE_NAME";
+echo "Creating new GIT branch : $trackAckronym";
+createGitBranch "$LOCAL_GITREPO/$p_app" "$trackAckronym";
 # Extract file to git repo
 echo 'Extracting exported zip into local GIT repo';
 source "${BASH_SOURCE%/*}/extractBPMExport.sh";
 # Commit and push git branch
-echo "Commit and push new GIT branch : $UNIQUE_FILE_NAME";
-commitandPushGitBranch "$LOCAL_GITREPO/$p_app" "$UNIQUE_FILE_NAME";
+echo "Commit and push new GIT branch : $trackAckronym";
+commitandPushGitBranch "$LOCAL_GITREPO/$p_app" "$trackAckronym" "$snap";
 
 # Empty the temp directory
 echo 'Removing temp files'
